@@ -144,11 +144,6 @@ public class SlangWordModel {
 		        
 		    }
 		       
-		    
-		    System.out.println("wordList: " + wordList.size());
-		    System.out.println("wordList_1: " + wordList_1.size());
-		    System.out.println("Total Line Read: " + number);
-		    System.out.println("Total Line in File: " +numberOfLine);
 		
 		    
 		   

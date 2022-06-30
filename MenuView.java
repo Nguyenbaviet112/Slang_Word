@@ -23,18 +23,6 @@ public class MenuView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuView frame = new MenuView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -77,8 +65,8 @@ public class MenuView extends JFrame {
 		lblNewLabel_1.setBounds(10, 57, 64, 27);
 		panel_SelectMenu_1.add(lblNewLabel_1);
 		
-		JButton btn_searchDefinition = new JButton("Tìm kiếm definition ");
-	
+		JButton btn_searchDefinition = new JButton("Tìm kiếm definition");
+		btn_searchDefinition.addActionListener(ac);
 		btn_searchDefinition.setBounds(84, 122, 262, 41);
 		panel_SelectMenu_1.add(btn_searchDefinition);
 		
@@ -88,9 +76,10 @@ public class MenuView extends JFrame {
 		lblNewLabel_1_1.setBounds(10, 128, 64, 27);
 		panel_SelectMenu_1.add(lblNewLabel_1_1);
 		
-		JButton btn_showHistory = new JButton("Hiển thị history ");
+		JButton btn_showHistory = new JButton("Hiển thị history");
 		btn_showHistory.setBounds(84, 194, 262, 41);
 		panel_SelectMenu_1.add(btn_showHistory);
+		btn_showHistory.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("3.");
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,6 +90,7 @@ public class MenuView extends JFrame {
 		JButton btn_addSlangWord = new JButton("Add 1 slang word mới");
 		btn_addSlangWord.setBounds(84, 260, 262, 41);
 		panel_SelectMenu_1.add(btn_addSlangWord);
+		btn_addSlangWord.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("4.");
 		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -111,6 +101,7 @@ public class MenuView extends JFrame {
 		JButton btn_editSlangWord = new JButton("Edit 1 slang word");
 		btn_editSlangWord.setBounds(84, 328, 262, 41);
 		panel_SelectMenu_1.add(btn_editSlangWord);
+		btn_editSlangWord.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("5.");
 		lblNewLabel_1_4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -126,6 +117,7 @@ public class MenuView extends JFrame {
 		JButton btn_deleteSlangWord = new JButton("delete 1 slang word");
 		btn_deleteSlangWord.setBounds(84, 51, 262, 41);
 		panel_SelectMenu_1_1.add(btn_deleteSlangWord);
+		btn_deleteSlangWord.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_5 = new JLabel("6.");
 		lblNewLabel_1_5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -136,6 +128,7 @@ public class MenuView extends JFrame {
 		JButton btn_resetSlangWord = new JButton("Reset slang words");
 		btn_resetSlangWord.setBounds(84, 122, 262, 41);
 		panel_SelectMenu_1_1.add(btn_resetSlangWord);
+		btn_resetSlangWord.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("7.");
 		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -146,6 +139,7 @@ public class MenuView extends JFrame {
 		JButton btn_randomSlangWord = new JButton("Random 1 slang wrod");
 		btn_randomSlangWord.setBounds(84, 194, 262, 41);
 		panel_SelectMenu_1_1.add(btn_randomSlangWord);
+		btn_randomSlangWord.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("8.");
 		lblNewLabel_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -156,6 +150,7 @@ public class MenuView extends JFrame {
 		JButton btn_riddleSlangWord = new JButton("Đố vui slang words");
 		btn_riddleSlangWord.setBounds(84, 260, 262, 41);
 		panel_SelectMenu_1_1.add(btn_riddleSlangWord);
+		btn_riddleSlangWord.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_3_1 = new JLabel("9.");
 		lblNewLabel_1_3_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -163,14 +158,17 @@ public class MenuView extends JFrame {
 		lblNewLabel_1_3_1.setBounds(10, 266, 64, 27);
 		panel_SelectMenu_1_1.add(lblNewLabel_1_3_1);
 		
-		JButton btn_riddleDefinition = new JButton("Dố vui defenition");
+		JButton btn_riddleDefinition = new JButton("Đố vui defenition");
 		btn_riddleDefinition.setBounds(84, 328, 262, 41);
 		panel_SelectMenu_1_1.add(btn_riddleDefinition);
+		btn_riddleDefinition.addActionListener(ac);
 		
 		JLabel lblNewLabel_1_4_1 = new JLabel("10.");
 		lblNewLabel_1_4_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_4_1.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNewLabel_1_4_1.setBounds(10, 334, 64, 27);
 		panel_SelectMenu_1_1.add(lblNewLabel_1_4_1);
+		
+		this.setVisible(true);
 	}
 }

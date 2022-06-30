@@ -107,7 +107,10 @@ public class SearchWordsView extends JFrame {
 		scrollPane.setBounds(10, 10, 874, 278);
 		panel_center.add(scrollPane);
 		
-		table = new JTable(defaultTableModel);
+		table = new JTable(defaultTableModel) {
+			public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	            return false;}
+		};
 		scrollPane.setViewportView(table);
 		
 		

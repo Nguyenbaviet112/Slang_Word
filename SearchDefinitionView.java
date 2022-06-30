@@ -16,11 +16,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controller.SearchDefinitionListener;
 import controller.SearchWordsListener;
 import model.SlangWordModel;
 
 public class SearchDefinitionView extends JFrame {
 
+	private SearchWordsView searchWordsView;
+	
 	private JPanel contentPane;
 	private JTextField textField_search;
 	private SlangWordModel slangWordModel;
@@ -51,7 +54,7 @@ public class SearchDefinitionView extends JFrame {
 		
 		
 		
-		SearchWordsListener dc = new SearchWordsListener(this);
+		SearchDefinitionListener dc = new SearchDefinitionListener(this);
 		
 		
 		JPanel panel_top = new JPanel();
@@ -91,7 +94,10 @@ public class SearchDefinitionView extends JFrame {
 		scrollPane.setBounds(10, 10, 874, 278);
 		panel_center.add(scrollPane);
 		
-		table = new JTable(defaultTableModel);
+		table = new JTable(defaultTableModel) {
+			public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	            return false;}
+		};
 		scrollPane.setViewportView(table);
 		
 		

@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import controller.SearchDefinitionListener;
@@ -55,7 +56,7 @@ public class SearchSlangWordsHistoryView extends JFrame {
 		JLabel lblNewLabel = new JLabel("History Search SlangWord");
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 25));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(156, 24, 512, 99);
+		lblNewLabel.setBounds(187, 22, 512, 99);
 		panel_top.add(lblNewLabel);
 		
 		JPanel panel_center = new JPanel();
@@ -71,11 +72,26 @@ public class SearchSlangWordsHistoryView extends JFrame {
 			);
 		panel_center.setLayout(null);
 		
+		
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 10, 874, 278);
 		panel_center.add(scrollPane);
 		
-		table = new JTable(defaultTableModel);
+		table = new JTable(defaultTableModel) {
+			public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	            return false;}
+		};
+		
+	
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(JLabel.CENTER);
+		
+		for (int i = 0; i < defaultTableModel.getColumnCount(); i++)
+		{
+			table.getColumnModel().getColumn(i).setCellRenderer(dtcr);
+		}
+		
 		table.setFont(new Font("Arial", Font.PLAIN, 15));
 		scrollPane.setViewportView(table);
 		

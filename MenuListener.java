@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 
 import view.MenuView;
 import view.SearchDefinitionView;
+import view.SearchSlangWordsHistoryView;
 import view.SearchWordsView;
 
 public class MenuListener implements ActionListener {
 	private MenuView menuView;
 	private SearchDefinitionView searchDefinitionView;
 	private SearchWordsView searchWordsView;
+	private SearchSlangWordsHistoryView searchSlangWordsHistoryView;
 	
 	public MenuListener(MenuView menuView)
 	{
@@ -30,8 +32,11 @@ public class MenuListener implements ActionListener {
 		
 		else if (button.equals("Tìm kiếm definition"))
 		{
-			System.out.println("clicked");
 			searchDefinitionView = new SearchDefinitionView();
+		}
+		else if (button.equals("Hiển thị history"))
+		{
+			searchSlangWordsHistoryView = new SearchSlangWordsHistoryView();
 		}
 	}
 
