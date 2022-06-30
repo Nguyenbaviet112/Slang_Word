@@ -62,7 +62,10 @@ public class SearchWordsView extends JFrame {
 		
 		
 		
-		slangWordModel = new SlangWordModel();
+		this.slangWordModel = new SlangWordModel();
+		this.slangWordModel.get_SlangWord_Definition();
+		
+		
 		
 		SearchWordsListener dc = new SearchWordsListener(this);
 		
@@ -117,36 +120,43 @@ public class SearchWordsView extends JFrame {
 
 	}
 	
-	public void showTextField()
-	{
-		System.out.println(textField_search.getText());
-	}
+
 	
 	public void loadSlangWord()
 	{
-		this.slangWordModel.get_SlangWord_Definition();
+		this.defaultTableModel.setRowCount(0);
+		String text = textField_search.getText();
+		
 
-		
-		
 		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList().entrySet()) {
-			defaultTableModel.addRow(
-	                new Object[]{
-	                      entry.getKey(), 
-	                      entry.getValue(),                   
-	                });
+			
+			if (entry.getKey().toLowerCase().contains(text.toLowerCase()))
+			{
+				defaultTableModel.addRow(
+		                new Object[]{
+		                      entry.getKey(), 
+		                      entry.getValue(),                   
+		                });
+			}
+			
+			
 		}
 		
 		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList_1().entrySet()) {
-			defaultTableModel.addRow(
-	                new Object[]{
-	                      entry.getKey(), 
-	                      entry.getValue(),                   
-	                });
+			
+			if (entry.getKey().toLowerCase().contains(text.toLowerCase()))
+			{
+				defaultTableModel.addRow(
+		                new Object[]{
+		                      entry.getKey(), 
+		                      entry.getValue(),                   
+		                });
+			}
+			
+			
 		}
 		
 		table.repaint();
-		
-		
 		
 	}
 }
