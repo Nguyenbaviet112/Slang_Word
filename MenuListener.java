@@ -30,6 +30,7 @@ public class MenuListener implements ActionListener {
 		
 		else if (button.equals("Tìm kiếm definition"))
 		{
+			System.out.println("clicked");
 			searchDefinitionView = new SearchDefinitionView();
 		}
 	}
