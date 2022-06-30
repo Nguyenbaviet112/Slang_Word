@@ -28,6 +28,7 @@ import javax.swing.JButton;
 
 public class SearchWordsView extends JFrame {
 
+	private FileWriter myWriter;
 	private JPanel contentPane;
 	private JTextField textField_search;
 	private SlangWordModel slangWordModel;
@@ -53,14 +54,23 @@ public class SearchWordsView extends JFrame {
 		setLocationRelativeTo(null);
 		
 		
+		try {
+			myWriter = new FileWriter("historysearch.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		this.slangWordModel = new SlangWordModel();
 		this.slangWordModel.get_SlangWord_Definition();
 		
+
 		
 		
 		SearchWordsListener ac = new SearchWordsListener(this);
 		
+		this.addWindowListener(ac);
 		
 		JPanel panel_top = new JPanel();
 		panel_top.setBounds(10, 10, 894, 173);
@@ -108,24 +118,37 @@ public class SearchWordsView extends JFrame {
 
 	}
 	
-//	public void writeHistorySearchInFIle(String text)
-//	{
-//		try {
-//		      FileWriter myWriter = new FileWriter("historysearch.txt");
-//		      myWriter.write(text);
-//		      myWriter.close();
-//		      System.out.println("Successfully wrote to the file.");
-//		    } catch (IOException e) {
-//		      System.out.println("An error occurred.");
-//		      e.printStackTrace();
-//		    }
-//	}
+	public void writeHistorySearchInFIle(String text)
+	{
+		try {
+			
+			myWriter.write(text);
+			myWriter.write("\n");
+		    System.out.println("Successfully wrote to the file.");
+		}
+		catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+	
+	public void closeFile()
+	{
+		try {
+			this.myWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 
 	
 	public void loadSlangWord()
 	{
 		String text = textField_search.getText();
+		
+		this.writeHistorySearchInFIle(text);
 		
 		if (text.equals(""))
 		{
