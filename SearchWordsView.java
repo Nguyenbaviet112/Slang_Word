@@ -14,6 +14,8 @@ import model.SlangWordModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,7 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.JButton;
 
 public class SearchWordsView extends JFrame {
 
@@ -56,7 +59,7 @@ public class SearchWordsView extends JFrame {
 		
 		
 		
-		SearchWordsListener dc = new SearchWordsListener(this);
+		SearchWordsListener ac = new SearchWordsListener(this);
 		
 		
 		JPanel panel_top = new JPanel();
@@ -64,20 +67,18 @@ public class SearchWordsView extends JFrame {
 		contentPane.add(panel_top);
 		panel_top.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Search:");
-		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(42, 56, 123, 54);
-		panel_top.add(lblNewLabel);
-		
 		textField_search = new JTextField();
 		textField_search.setFont(new Font("Arial", Font.PLAIN, 20));
 		textField_search.setHorizontalAlignment(SwingConstants.LEFT);
-		textField_search.setBounds(160, 56, 699, 54);
+		textField_search.setBounds(50, 29, 812, 54);
 		panel_top.add(textField_search);
 		textField_search.setColumns(10);
 		
-		textField_search.getDocument().addDocumentListener(dc);
+		JButton btn_Search = new JButton("Search");
+		btn_Search.setFont(new Font("Arial", Font.PLAIN, 20));
+		btn_Search.setBounds(338, 101, 202, 51);
+		panel_top.add(btn_Search);
+		btn_Search.addActionListener(ac);
 		
 		JPanel panel_center = new JPanel();
 		panel_center.setBounds(10, 211, 894, 395);
@@ -107,6 +108,19 @@ public class SearchWordsView extends JFrame {
 
 	}
 	
+//	public void writeHistorySearchInFIle(String text)
+//	{
+//		try {
+//		      FileWriter myWriter = new FileWriter("historysearch.txt");
+//		      myWriter.write(text);
+//		      myWriter.close();
+//		      System.out.println("Successfully wrote to the file.");
+//		    } catch (IOException e) {
+//		      System.out.println("An error occurred.");
+//		      e.printStackTrace();
+//		    }
+//	}
+	
 
 	
 	public void loadSlangWord()
@@ -124,7 +138,7 @@ public class SearchWordsView extends JFrame {
 
 		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList().entrySet()) {
 			
-			if (entry.getKey().toLowerCase().contains(text.toLowerCase()))
+			if (entry.getKey().toLowerCase().equals(text.toLowerCase()))
 			{
 				defaultTableModel.addRow(
 		                new Object[]{
@@ -138,7 +152,7 @@ public class SearchWordsView extends JFrame {
 		
 		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList_1().entrySet()) {
 			
-			if (entry.getKey().toLowerCase().contains(text.toLowerCase()))
+			if (entry.getKey().toLowerCase().equals(text.toLowerCase()))
 			{
 				defaultTableModel.addRow(
 		                new Object[]{
@@ -148,6 +162,17 @@ public class SearchWordsView extends JFrame {
 			}
 			
 			
+		}
+		
+		int rowncount = defaultTableModel.getRowCount();
+		
+		if (rowncount == 0)
+		{
+			defaultTableModel.addRow(
+	                new Object[]{
+	                      "Không tìm thấy SLangWord", 
+	                      "",                   
+	                });
 		}
 		
 		table.repaint();
