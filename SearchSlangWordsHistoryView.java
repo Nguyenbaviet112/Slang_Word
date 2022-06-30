@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.SearchDefinitionListener;
+import model.SearchSlangWordHistoryModel;
 import model.SlangWordModel;
 
 public class SearchSlangWordsHistoryView extends JFrame {
@@ -22,6 +24,7 @@ public class SearchSlangWordsHistoryView extends JFrame {
 	private JPanel contentPane;
 	private DefaultTableModel defaultTableModel;
 	private JTable table;
+	private SearchSlangWordHistoryModel searchSlangWordHistoryModel;
 
 	/**
 	 * Launch the application.
@@ -41,7 +44,7 @@ public class SearchSlangWordsHistoryView extends JFrame {
 		setLocationRelativeTo(null);
 		
 	
-		
+		searchSlangWordHistoryModel = new SearchSlangWordHistoryModel();
 		
 		
 		JPanel panel_top = new JPanel();
@@ -73,10 +76,29 @@ public class SearchSlangWordsHistoryView extends JFrame {
 		panel_center.add(scrollPane);
 		
 		table = new JTable(defaultTableModel);
+		table.setFont(new Font("Arial", Font.PLAIN, 15));
 		scrollPane.setViewportView(table);
 		
-		
+		loadHistorySearch();
 	
 		this.setVisible(true);
+		
+		
 	}
+	
+	public void loadHistorySearch()
+	{
+		searchSlangWordHistoryModel.getListHistorySearch();
+		List<String> historySearch = searchSlangWordHistoryModel.getHistorySearch();
+		
+		for (String s: historySearch)
+		{
+			defaultTableModel.addRow(new Object[]{
+					s
+			});
+		}
+		
+		table.repaint();
+	}
+	
 }
