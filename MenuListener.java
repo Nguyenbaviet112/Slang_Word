@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.MenuView;
+import view.SearchDefinitionView;
 import view.SearchWordsView;
 
 public class MenuListener implements ActionListener {
 	private MenuView menuView;
+	private SearchDefinitionView searchDefinitionView;
 	private SearchWordsView searchWordsView;
 	
 	public MenuListener(MenuView menuView)
@@ -23,7 +25,12 @@ public class MenuListener implements ActionListener {
 		if (button.equals("Tìm kiếm slag words"))
 		{
 			searchWordsView = new SearchWordsView();
-			this.searchWordsView.setVisible(true);
+			
+		}
+		
+		else if (button.equals("Tìm kiếm definition"))
+		{
+			searchDefinitionView = new SearchDefinitionView();
 		}
 	}
 
