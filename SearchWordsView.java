@@ -35,18 +35,7 @@ public class SearchWordsView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SearchWordsView frame = new SearchWordsView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -96,9 +85,7 @@ public class SearchWordsView extends JFrame {
 		
 		
 		defaultTableModel = new DefaultTableModel(
-				new Object[][] {
-					{null, null},
-				},
+				new Object[][] {},
 				new String[] {
 					"SlangWord", "Definition"
 				}
@@ -114,7 +101,7 @@ public class SearchWordsView extends JFrame {
 		
 		
 	
-		
+		this.setVisible(true);
 	
 		
 
@@ -124,9 +111,16 @@ public class SearchWordsView extends JFrame {
 	
 	public void loadSlangWord()
 	{
-		this.defaultTableModel.setRowCount(0);
 		String text = textField_search.getText();
 		
+		if (text.equals(""))
+		{
+			this.defaultTableModel.setRowCount(0);
+			return;
+		}
+		
+		
+		this.defaultTableModel.setRowCount(0);
 
 		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList().entrySet()) {
 			
