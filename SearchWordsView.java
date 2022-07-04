@@ -31,9 +31,9 @@ public class SearchWordsView extends JFrame {
 	private FileWriter myWriter;
 	private JPanel contentPane;
 	private JTextField textField_search;
-	private SlangWordModel slangWordModel;
 	private DefaultTableModel defaultTableModel;
 	private JTable table;
+	private MenuView menuView;
 	
 
 	/**
@@ -44,7 +44,9 @@ public class SearchWordsView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SearchWordsView() {
+	public SearchWordsView(MenuView menuView) {
+		
+		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE );
 		setBounds(100, 100, 928, 653);
 		contentPane = new JPanel();
@@ -53,24 +55,8 @@ public class SearchWordsView extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		
-		try {
-			myWriter = new FileWriter("historysearch.txt");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		this.slangWordModel = new SlangWordModel();
-		this.slangWordModel.get_SlangWord_Definition();
-		
-
-		
-		
 		SearchWordsListener ac = new SearchWordsListener(this);
-		
-		this.addWindowListener(ac);
+		this.menuView = menuView;
 		
 		JPanel panel_top = new JPanel();
 		panel_top.setBounds(10, 10, 894, 173);
@@ -113,13 +99,24 @@ public class SearchWordsView extends JFrame {
 		};
 		scrollPane.setViewportView(table);
 		
+		//this.menuView = menuView;
 		
-	
-		this.setVisible(true);
-	
+		try {
+			myWriter = new FileWriter("historysearch.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		
-
+		
+		
+		this.addWindowListener(ac);
+		
+		
 	}
+	
+	this.setVisible(true);
+
+}
 	
 	public void writeHistorySearchInFIle(String text)
 	{
@@ -149,6 +146,9 @@ public class SearchWordsView extends JFrame {
 	
 	public void loadSlangWord()
 	{
+		
+
+		
 		String text = textField_search.getText();
 		
 		this.writeHistorySearchInFIle(text);
@@ -162,7 +162,7 @@ public class SearchWordsView extends JFrame {
 		
 		this.defaultTableModel.setRowCount(0);
 
-		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList().entrySet()) {
+		for (Map.Entry<String, List<String>> entry : this.menuView.getSlangWordList().entrySet()) {
 			
 			if (entry.getKey().toLowerCase().equals(text.toLowerCase()))
 			{
@@ -176,7 +176,7 @@ public class SearchWordsView extends JFrame {
 			
 		}
 		
-		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList_1().entrySet()) {
+		for (Map.Entry<String, List<String>> entry : this.menuView.getSlangWordList_1().entrySet()) {
 			
 			if (entry.getKey().toLowerCase().equals(text.toLowerCase()))
 			{
@@ -201,6 +201,7 @@ public class SearchWordsView extends JFrame {
 	                });
 		}
 		
+		System.out.println();
 		table.repaint();
 		
 	}

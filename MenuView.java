@@ -8,18 +8,26 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.MenuListener;
+import model.SlangWordModel;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 public class MenuView extends JFrame {
 
 	private JPanel contentPane;
+	private FileWriter myWriter;
+	private SlangWordModel slangWordModel;
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -27,7 +35,12 @@ public class MenuView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+
+	
 	public MenuView() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setBounds(100, 100, 929, 696);
@@ -36,6 +49,22 @@ public class MenuView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		
+		
+		try {
+			myWriter = new FileWriter("newslangword.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		slangWordModel = new SlangWordModel();
+		slangWordModel.get_SlangWord_Definition();
+		
+		
+		
+		
 		
 		JPanel panel_Menu = new JPanel();
 		panel_Menu.setBounds(315, 46, 300, 65);
@@ -53,11 +82,15 @@ public class MenuView extends JFrame {
 		contentPane.add(panel_SelectMenu_1);
 		panel_SelectMenu_1.setLayout(null);
 		
-		ActionListener ac = new MenuListener(this);
+		MenuListener ac = new MenuListener(this);
+		
+		
 		JButton btn_searchSlangWord = new JButton("Tìm kiếm slag words");
 		btn_searchSlangWord.addActionListener(ac);
 		btn_searchSlangWord.setBounds(84, 51, 262, 41);
 		panel_SelectMenu_1.add(btn_searchSlangWord);
+		
+		this.addWindowListener(ac);
 		
 		JLabel lblNewLabel_1 = new JLabel("1.");
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -171,4 +204,91 @@ public class MenuView extends JFrame {
 		
 		this.setVisible(true);
 	}
+	
+	
+	public Map<String, List<String>> getSlangWordList()
+	{
+		return slangWordModel.getWordList();
+		
+	}
+	
+	
+	public Map<String, List<String>> getSlangWordList_1()
+	{
+		return slangWordModel.getWordList_1();
+	}
+	
+	
+	public void WriteNewFileSlangWord()
+	{
+	
+		
+		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList().entrySet()) {
+			
+			
+			try {
+				myWriter.write(entry.getKey());
+				myWriter.write("`");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			for (int i = 0; i < entry.getValue().size(); i++)
+			{
+				
+				try {
+					myWriter.write(entry.getValue().get(i));
+					if (i+1 < entry.getValue().size())
+						myWriter.write("|");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			try {
+				myWriter.write("\n");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList_1().entrySet()) 
+		{
+			
+			
+			try {
+				myWriter.write(entry.getKey());
+				myWriter.write("`");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			for (int i = 0; i < entry.getValue().size(); i++)
+			{
+				
+				try {
+					myWriter.write(entry.getValue().get(i));
+					if (i+1 < entry.getValue().size())
+						myWriter.write("|");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+			try {
+				myWriter.write("\n");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
 }

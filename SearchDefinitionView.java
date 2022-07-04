@@ -26,7 +26,7 @@ public class SearchDefinitionView extends JFrame {
 	
 	private JPanel contentPane;
 	private JTextField textField_search;
-	private SlangWordModel slangWordModel;
+	private MenuView menuView;
 	private DefaultTableModel defaultTableModel;
 	private JTable table;
 
@@ -49,11 +49,9 @@ public class SearchDefinitionView extends JFrame {
 		
 		
 		
-		this.slangWordModel = new SlangWordModel();
-		this.slangWordModel.get_SlangWord_Definition();
 		
 		
-		
+		this.menuView = new MenuView();
 		SearchDefinitionListener dc = new SearchDefinitionListener(this);
 		
 		
@@ -107,6 +105,8 @@ public class SearchDefinitionView extends JFrame {
 	
 	public void loadSlangWord()
 	{
+		
+		
 		String text = textField_search.getText();
 		
 		if (text.equals(""))
@@ -118,7 +118,7 @@ public class SearchDefinitionView extends JFrame {
 		
 		this.defaultTableModel.setRowCount(0);
 
-		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList().entrySet()) {
+		for (Map.Entry<String, List<String>> entry : this.menuView.getSlangWordList().entrySet()) {
 			
 			for (int i = 0; i < entry.getValue().size(); ++i)
 			{
@@ -137,7 +137,7 @@ public class SearchDefinitionView extends JFrame {
 			
 		}
 		
-		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList_1().entrySet()) {
+		for (Map.Entry<String, List<String>> entry : this.menuView.getSlangWordList_1().entrySet()) {
 			
 			for (int i = 0; i < entry.getValue().size(); ++i)
 			{
