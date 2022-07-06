@@ -15,8 +15,15 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.awt.event.ActionEvent;
@@ -24,18 +31,13 @@ import java.awt.event.ActionEvent;
 public class MenuView extends JFrame {
 
 	private JPanel contentPane;
-	private FileWriter myWriter;
+	private BufferedWriter  bufferedWriter;
 	private SlangWordModel slangWordModel;
-
 	
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 */
 	
+
+
+
 
 	
 	public MenuView() {
@@ -51,21 +53,13 @@ public class MenuView extends JFrame {
 		setLocationRelativeTo(null);
 		
 		
-		try {
-			myWriter = new FileWriter("newslangword.txt");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		
 		slangWordModel = new SlangWordModel();
 		slangWordModel.get_SlangWord_Definition();
 		
-		
-		
-		
-		
+
 		JPanel panel_Menu = new JPanel();
 		panel_Menu.setBounds(315, 46, 300, 65);
 		contentPane.add(panel_Menu);
@@ -83,7 +77,7 @@ public class MenuView extends JFrame {
 		panel_SelectMenu_1.setLayout(null);
 		
 		MenuListener ac = new MenuListener(this);
-		
+			
 		
 		JButton btn_searchSlangWord = new JButton("Tìm kiếm slag words");
 		btn_searchSlangWord.addActionListener(ac);
@@ -219,76 +213,91 @@ public class MenuView extends JFrame {
 	}
 	
 	
-	public void WriteNewFileSlangWord()
+	
+	public void WriteNewFileSlangWord(MenuView menuView)
 	{
 	
+		File file = new File("newslangword.txt");
+		this.bufferedWriter = null;
 		
-		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList().entrySet()) {
-			
-			
-			try {
-				myWriter.write(entry.getKey());
-				myWriter.write("`");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
-			for (int i = 0; i < entry.getValue().size(); i++)
-			{
-				
-				try {
-					myWriter.write(entry.getValue().get(i));
-					if (i+1 < entry.getValue().size())
-						myWriter.write("|");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			try {
-				myWriter.write("\n");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
-		for (Map.Entry<String, List<String>> entry : this.slangWordModel.getWordList_1().entrySet()) 
+		try 
 		{
+			this.bufferedWriter = new BufferedWriter(new FileWriter(file));
 			
-			
-			try {
-				myWriter.write(entry.getKey());
-				myWriter.write("`");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			for (int i = 0; i < entry.getValue().size(); i++)
+			for (Map.Entry<String, List<String>> entry : menuView.getSlangWordList().entrySet()) 
 			{
-				
-				try {
-					myWriter.write(entry.getValue().get(i));
-					if (i+1 < entry.getValue().size())
-						myWriter.write("|");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				bufferedWriter.write(entry.getKey());
+				bufferedWriter.write("`");
+				for (int i = 0; i < entry.getValue().size(); ++i)
+				{
+					bufferedWriter.write(entry.getValue().get(i));
+					if(i+1 < entry.getValue().size())
+					{
+						bufferedWriter.write("|");
+					}
 				}
+				
+				bufferedWriter.newLine();
 			}
-			
-			try {
-				myWriter.write("\n");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			for (Map.Entry<String, List<String>> entry : menuView.getSlangWordList_1().entrySet()) 
+			{
+				bufferedWriter.write(entry.getKey());
+				bufferedWriter.write("`");
+				for (int i = 0; i < entry.getValue().size(); ++i)
+				{
+					bufferedWriter.write(entry.getValue().get(i));
+					if(i+1 < entry.getValue().size())
+					{
+						bufferedWriter.write("|");
+					}
+				}
+				
+				bufferedWriter.newLine();
 			}
-			
+			bufferedWriter.flush();
+		} 
+		catch (IOException ex) 
+		{
+		// TODO Auto-generated catch block
+		ex.printStackTrace();
 		}
+
+		finally {
+			  
+	            try {
+	  
+	                // always close the writer
+	            	bufferedWriter.close();
+	            }
+	            catch (Exception e) {
+	            	
+	            }
+            }
+						
+		
+		int rowcount = 0;
+		
+		try(BufferedReader br = new BufferedReader(new FileReader("newslangword.txt"))) {
+			
+			String line = br.readLine();
+			while (line != null)
+			{
+				rowcount++;
+				line = br.readLine();
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("rowcount: " + rowcount);
+		System.out.println("Tong so: " + (menuView.getSlangWordList().size() + menuView.getSlangWordList_1().size()));
+
+		
 	}
 	
 }

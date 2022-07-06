@@ -30,6 +30,7 @@ public class SearchDefinitionView extends JFrame {
 	private DefaultTableModel defaultTableModel;
 	private JTable table;
 
+
 	/**
 	 * Launch the application.
 	 */
@@ -38,7 +39,7 @@ public class SearchDefinitionView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SearchDefinitionView() {
+	public SearchDefinitionView(MenuView menuView) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE );
 		setBounds(100, 100, 928, 653);
 		contentPane = new JPanel();
@@ -49,9 +50,8 @@ public class SearchDefinitionView extends JFrame {
 		
 		
 		
+		this.menuView = menuView;
 		
-		
-		this.menuView = new MenuView();
 		SearchDefinitionListener dc = new SearchDefinitionListener(this);
 		
 		

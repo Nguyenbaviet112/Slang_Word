@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import view.AddSlangWordView;
 import view.MenuView;
@@ -36,7 +38,7 @@ public class MenuListener implements ActionListener, WindowListener {
 		
 		else if (button.equals("Tìm kiếm definition"))
 		{
-			searchDefinitionView = new SearchDefinitionView();
+			searchDefinitionView = new SearchDefinitionView(this.menuView);
 		}
 		else if (button.equals("Hiển thị history"))
 		{
@@ -57,7 +59,8 @@ public class MenuListener implements ActionListener, WindowListener {
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		this.menuView.WriteNewFileSlangWord();
+		
+		this.menuView.WriteNewFileSlangWord(this.menuView);
 	}
 
 	@Override

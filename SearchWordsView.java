@@ -14,6 +14,8 @@ import model.SlangWordModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +30,7 @@ import javax.swing.JButton;
 
 public class SearchWordsView extends JFrame {
 
-	private FileWriter myWriter;
+	private BufferedWriter  bufferedWriter;
 	private JPanel contentPane;
 	private JTextField textField_search;
 	private DefaultTableModel defaultTableModel;
@@ -99,10 +101,11 @@ public class SearchWordsView extends JFrame {
 		};
 		scrollPane.setViewportView(table);
 		
-		//this.menuView = menuView;
+		File file = new File("historysearch.txt");
+		this.bufferedWriter = null;
 		
 		try {
-			myWriter = new FileWriter("historysearch.txt");
+			this.bufferedWriter = new BufferedWriter(new FileWriter(file));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,8 +125,9 @@ public class SearchWordsView extends JFrame {
 	{
 		try {
 			
-			myWriter.write(text);
-			myWriter.write("\n");
+			bufferedWriter.write(text);
+			bufferedWriter.newLine();
+			bufferedWriter.flush();
 		    System.out.println("Successfully wrote to the file.");
 		}
 		catch (IOException e) {
@@ -135,11 +139,13 @@ public class SearchWordsView extends JFrame {
 	public void closeFile()
 	{
 		try {
-			this.myWriter.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			  
+            // always close the writer
+        	bufferedWriter.close();
+        }
+        catch (Exception e) {
+        	
+        }
 	}
 	
 
@@ -147,7 +153,6 @@ public class SearchWordsView extends JFrame {
 	public void loadSlangWord()
 	{
 		
-
 		
 		String text = textField_search.getText();
 		
