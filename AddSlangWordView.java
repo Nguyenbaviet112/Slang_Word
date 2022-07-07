@@ -105,8 +105,6 @@ public class AddSlangWordView extends JFrame {
 	public void addSlangWord()
 	{
 		
-		System.out.println("Tong so SlangWord truoc khi them: " + (this.menuView.getSlangWordList().size() + this.menuView.getSlangWordList_1().size()));
-
 
 		String slangWord = textField_SlangWord.getText();
 		String definiton = textField_Definition.getText();
@@ -139,8 +137,6 @@ public class AddSlangWordView extends JFrame {
 		
 		this.menuView.getSlangWordList_1().put(slangWord, listDefinition);
 		
-		System.out.println("Tong so SlangWord: " + (this.menuView.getSlangWordList().size() + this.menuView.getSlangWordList_1().size()));
-
 		
 		JOptionPane.showMessageDialog(contentPane, "ADD succesfully", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		

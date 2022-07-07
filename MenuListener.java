@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import view.AddSlangWordView;
+import view.DeleteSlangWordView;
+import view.EditSlangWordView;
 import view.MenuView;
 import view.SearchDefinitionView;
 import view.SearchSlangWordsHistoryView;
@@ -19,6 +21,8 @@ public class MenuListener implements ActionListener, WindowListener {
 	private SearchDefinitionView searchDefinitionView;
 	private SearchWordsView searchWordsView;
 	private SearchSlangWordsHistoryView searchSlangWordsHistoryView;
+	private EditSlangWordView editSlangWordView;
+	private DeleteSlangWordView deleteSlangWordView;
 	
 	public MenuListener(MenuView menuView)
 	{
@@ -48,6 +52,14 @@ public class MenuListener implements ActionListener, WindowListener {
 		{
 			addSlangWordView = new AddSlangWordView(this.menuView);
 		}
+		else if (button.equals("Edit 1 slang word"))
+		{
+			editSlangWordView = new EditSlangWordView(this.menuView);
+		}
+		else if (button.equals("delete 1 slang word")) {
+			deleteSlangWordView = new DeleteSlangWordView(this.menuView);
+		}
+		
 	}
 
 	@Override

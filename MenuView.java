@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.MenuListener;
+import model.NewSlangWordModel;
 import model.SlangWordModel;
 
 import javax.swing.JLabel;
@@ -32,7 +33,7 @@ public class MenuView extends JFrame {
 
 	private JPanel contentPane;
 	private BufferedWriter  bufferedWriter;
-	private SlangWordModel slangWordModel;
+	private NewSlangWordModel newSlangWordModel;
 	
 	
 
@@ -56,8 +57,8 @@ public class MenuView extends JFrame {
 		
 		
 		
-		slangWordModel = new SlangWordModel();
-		slangWordModel.get_SlangWord_Definition();
+		newSlangWordModel = new NewSlangWordModel();
+		newSlangWordModel.get_SlangWord_Definition();
 		
 
 		JPanel panel_Menu = new JPanel();
@@ -202,14 +203,14 @@ public class MenuView extends JFrame {
 	
 	public Map<String, List<String>> getSlangWordList()
 	{
-		return slangWordModel.getWordList();
+		return newSlangWordModel.getWordList();
 		
 	}
 	
 	
 	public Map<String, List<String>> getSlangWordList_1()
 	{
-		return slangWordModel.getWordList_1();
+		return newSlangWordModel.getWordList_1();
 	}
 	
 	
@@ -275,27 +276,7 @@ public class MenuView extends JFrame {
             }
 						
 		
-		int rowcount = 0;
-		
-		try(BufferedReader br = new BufferedReader(new FileReader("newslangword.txt"))) {
-			
-			String line = br.readLine();
-			while (line != null)
-			{
-				rowcount++;
-				line = br.readLine();
-			}
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("rowcount: " + rowcount);
-		System.out.println("Tong so: " + (menuView.getSlangWordList().size() + menuView.getSlangWordList_1().size()));
+		System.out.println(menuView.getSlangWordList().size() + menuView.getSlangWordList_1().size());
 
 		
 	}
