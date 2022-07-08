@@ -35,8 +35,6 @@ public class MenuView extends JFrame {
 	private BufferedWriter  bufferedWriter;
 	private NewSlangWordModel newSlangWordModel;
 	
-	
-
 
 
 
@@ -214,6 +212,15 @@ public class MenuView extends JFrame {
 	}
 	
 	
+	public void setSlangWordList(Map<String, List<String>> WordList)
+	{
+		newSlangWordModel.setWordList(WordList);
+	}
+	
+	public void setSlangWordList_1(Map<String, List<String>> WordList)
+	{
+		newSlangWordModel.setWordList_1(WordList);
+	}
 	
 	public void WriteNewFileSlangWord(MenuView menuView)
 	{

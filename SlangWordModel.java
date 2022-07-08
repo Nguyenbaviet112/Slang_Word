@@ -59,34 +59,8 @@ public class SlangWordModel {
 
 	public void get_SlangWord_Definition()
 	{
-		int numberOfLine = 0;
-		int number = 0;
-		String [] data_input = {};
-		
-		
-		
-		try(BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
-		    
-			
-		    String line = br.readLine();
-
-		    while (line != null) {
-		    	data_input = (line.split(" "));
-		    	line = br.readLine();
-		    }
-		    
-		
-		    
-		   
-		}  catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-		try(BufferedReader br = new BufferedReader(new FileReader("slang.txt"))) {
+		try(BufferedReader br = new BufferedReader(new FileReader("slang.txt"))) 
+		{
 		    
 			String key = "";
 			
@@ -101,55 +75,45 @@ public class SlangWordModel {
 		    	if (data.length > 1)
 		    	{
 		    		
-		    		for ( int i = 0; i < data_input.length; i++)
-		    		{
-		    			if (data[0].equals(data_input[i]))
-		    			{
-		    				key = data[0];
-				    		
-				    		
-				    		data_value = data[1].split("[|]");
-			    			for (int j = 0; j < data_value.length; j++)
-				    		{
-			    				
-				    			value.add(data_value[j].trim());
-				    			
-				    		}
-			    			
-
-			    			wordList_1.put(key, value);
-		    			}
-		    		}
 		    		
-		    		number++;
 		    		key = data[0];
-		    		
-		    		
 		    		data_value = data[1].split("[|]");
-	    			for (int i = 0; i < data_value.length; i++)
+		    		for (int i = 0; i < data_value.length; i++)
 		    		{
 	    				
 		    			value.add(data_value[i].trim());
 		    			
 		    		}
-	    			
+		    		
+		    		if (wordList.containsKey(key) && wordList.size() > 0)
+		    		{
+	
+		    			wordList_1.put(key, value);
+		    		}
+		    		
+		    		else
+		    		{
 
-	    			wordList.put(key, value);
+		    			wordList.put(key, value);
+		    		}
+		    		
+		    		
 	    	
 		    	}
 		    	
 		    	
-		    	numberOfLine++;
 		        line = br.readLine();
 		        
 		    }
-		       
-		
 		    
-		   
-		}  catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    System.out.println(wordList.size() + wordList_1.size());
+		    
+		}
+	
+		catch (IOException e)
+		{
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		}
 	}
 	
